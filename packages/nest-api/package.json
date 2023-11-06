@@ -28,6 +28,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/serve-static": "^2.2.2",
     "class-validator": "^0.13.1",
+    "json-server": "^0.17.4",
     "jsonwebtoken": "^8.5.1",
     "passport": "^0.5.0",
     "passport-jwt": "^4.0.0",
