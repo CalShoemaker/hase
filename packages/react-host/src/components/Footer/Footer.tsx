@@ -8,7 +8,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary">
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="http://github.com/CalShoemaker/hase">
         Hase by TuCals
       </Link>{' '}
       {new Date().getFullYear()}
@@ -32,9 +32,6 @@ export const Footer = (props:any) => {
       }}
     >
       <Container>
-        <Typography variant="body1">
-          &nbsp; 
-        </Typography>
         <Copyright />
       </Container>
     </Box>

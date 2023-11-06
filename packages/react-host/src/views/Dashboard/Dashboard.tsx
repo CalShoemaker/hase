@@ -12,20 +12,17 @@ import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import PetsIcon from '@mui/icons-material/Pets';
 
-import { styled } from '@mui/material/styles';
+// NOTE: These are more UserRole components that display as a list. 
+// TODO: Abtract sidebar list components such that they consume UserRole related lists.
 import { mainListItems, secondaryListItems } from '../../components/ListItems/'
 import { Drawer } from '../../components/Drawer';
 import { AppBar } from '../../components/AppBar';
 import { Footer } from '../../components/Footer';
 import { Widget } from "../../components/Widget";
 
-const Wrapper = styled(Box)(({ theme }) => ({
-  background: "#1976d2",
-  height: "100vh",
-  margin: "0"
-}));
-
+// TODO: Abstract this further to support multiple UserRoles with corresponding views.
 export const Dashboard = () => {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -34,7 +31,6 @@ export const Dashboard = () => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
       <AppBar position="absolute" open={open}>
         <Toolbar
           sx={{
@@ -78,6 +74,16 @@ export const Dashboard = () => {
             px: [1],
           }}
         >
+          <PetsIcon sx={{ margin:1 }} />
+          <Typography
+            component="h2"
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1 }}
+          >
+            Hase
+          </Typography>
           <IconButton onClick={toggleDrawer}>
             <ChevronLeftIcon />
           </IconButton>
@@ -101,21 +107,20 @@ export const Dashboard = () => {
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4, height: 'calc(100vh - 200px)' }}>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4, height: 'calc(100vh - 172px)' }}>
           <Grid container spacing={3}>
-            {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
               <Widget>
                 <p>1</p>
               </Widget>
             </Grid>
-            {/* Recent Deposits */}
+
             <Grid item xs={12} md={4} lg={3}>
               <Widget>
                 <p>2</p>
               </Widget>
             </Grid>
-            {/* Recent Orders */}
+
             <Grid item xs={12}>
             <Widget>
                 <p>3</p>

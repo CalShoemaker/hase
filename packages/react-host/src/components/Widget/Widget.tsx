@@ -8,6 +8,7 @@ export const Widget = (props:any) => {
       display: 'flex',
       flexDirection: 'column',
       height: 240,
+      ...props.sx
     }}>
     { props.children }
     </Paper>
