@@ -1,5 +1,4 @@
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -13,6 +12,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PetsIcon from '@mui/icons-material/Pets';
+import { FilterGroup } from '../../components/FilterGroup';
+import { useState, useEffect } from "react";
 
 // NOTE: These are more UserRole components that display as a list. 
 // TODO: Abtract sidebar list components such that they consume UserRole related lists.
@@ -21,10 +22,55 @@ import { Drawer } from '../../components/Drawer';
 import { AppBar } from '../../components/AppBar';
 import { Footer } from '../../components/Footer';
 import { Widget } from "../../components/Widget";
+import { Link, useParams } from '@tanstack/react-router';
+
+type Dog = {
+  facts: object;
+  title: string;
+  id: string;
+  statistics: string;
+}
+
+const useDogsData = (url:string) => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetch(url)
+        
+        if (!response.ok) {
+          throw new Error(
+            `This is an HTTP error: The status is ${response.status}`
+          );
+        }
+
+        let actualData = await response.json();
+        setData(actualData);
+        setError(null);
+
+      } catch(err:any) {
+        setError(err.message);
+        setData([]);
+      } finally {
+        setLoading(false);
+      }  
+    }
+    getData()
+  }, [])
+
+  return { data, error, loading }
+};
 
 // TODO: Abstract this further to support multiple UserRoles with corresponding views.
 export const Dashboard = () => {
-  const [open, setOpen] = React.useState(true);
+  const { dogId } = useParams({ from:'/Dashboard' });
+  
+  const {data, loading, error} = useDogsData("http://localhost:3000/dogs");  
+  const image:any = useDogsData("https://dog.ceo/api/breed/affenpinscher/images/random");
+  const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -90,9 +136,10 @@ export const Dashboard = () => {
         </Toolbar>
         <Divider />
         <List component="nav">
-          {mainListItems}
+          {/* {mainListItems} */}
+          {/* {secondaryListItems} */}
+          <FilterGroup />
           <Divider sx={{ my: 1 }} />
-          {secondaryListItems}
         </List>
       </Drawer>
       <Box
@@ -107,28 +154,25 @@ export const Dashboard = () => {
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4, height: 'calc(100vh - 172px)' }}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={8} lg={9}>
-              <Widget>
-                <p>1</p>
-              </Widget>
-            </Grid>
-
-            <Grid item xs={12} md={4} lg={3}>
-              <Widget>
-                <p>2</p>
-              </Widget>
-            </Grid>
-
-            <Grid item xs={12}>
-            <Widget>
-                <p>3</p>
-              </Widget>
-            </Grid>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4, height:'100vh' }}>
+        <Grid container spacing={3}>
+            {loading && <div>A moment please...</div>}
+            {error && (
+              <div>{`There is a problem fetching the post data - ${error}`}</div>
+            )}
+            {data && (data as Dog[]).map(({title, facts, id, statistics}) => (
+              <Grid item xs={12} key={title}  md={4} lg={3}>
+                <Link from='/' to={"/dogs/$dogId"} params={{ dogId: id }}>
+                  <Widget>
+                      <p>{ title }</p>
+                      {/* <img src={(image.data.message) as string} /> */}
+                      <p>{ statistics && Object.keys(statistics).map(key =>(<li key={key}>{key}: {(statistics as any)[key]}</li>))}</p>
+                  </Widget>
+                </Link>
+              </Grid>
+            ))}
           </Grid>
         </Container>
-        <Footer /> 
       </Box>
     </Box>
   );
