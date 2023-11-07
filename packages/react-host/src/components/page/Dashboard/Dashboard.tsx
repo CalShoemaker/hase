@@ -12,7 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PetsIcon from '@mui/icons-material/Pets';
-import { FilterGroup } from '../../FilterGroup';
+import { FilterGroup } from '../../feature/FilterGroup';
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -21,7 +21,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { mainListItems, secondaryListItems } from '../../ui/ListItems'
 import { Drawer } from '../../ui/Drawer';
 import { AppBar } from '../../ui/AppBar';
-import { Footer } from '../../Footer';
+import { Footer } from '../../ui/Footer';
 import { Widget } from "../../ui/Widget";
 import { Link, useParams } from '@tanstack/react-router';
 import { selectDogs } from '../../../store/slices/dogs.slice';
