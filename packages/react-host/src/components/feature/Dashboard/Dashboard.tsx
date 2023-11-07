@@ -23,7 +23,7 @@ import { Drawer } from '../../ui/Drawer';
 import { AppBar } from '../../ui/AppBar';
 import { Footer } from '../../ui/Footer';
 import { Widget } from "../../ui/Widget";
-import { Link, useParams } from '@tanstack/react-router';
+import { Link, Outlet, useParams } from '@tanstack/react-router';
 import { selectDogs } from '../../../store/slices/dogs.slice';
 import { IDog } from '../../../store/slices/dogs.slice';
 
@@ -62,10 +62,11 @@ import { IDog } from '../../../store/slices/dogs.slice';
 // };
 
 // TODO: Abstract this further to support multiple UserRoles with corresponding views.
-export const Dashboard = () => {
+export const Dashboard = (props:any) => {
   // const { dogId } = useParams({ from:'/Dashboard' });
   const data = useSelector(selectDogs);
   const [open, setOpen] = useState(true);
+  
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -146,19 +147,7 @@ export const Dashboard = () => {
       >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4, height:'100vh' }}>
-        <Grid container spacing={3}>
-            {data.dogs && (data.dogs as IDog[]).map(({title, facts, id, statistics}) => (
-              <Grid item xs={12} key={title}  md={4} lg={3}>
-                <Link from='/' to={"/dogs/$dogId"} params={{ dogId: id }}>
-                  <Widget>
-                      <p>{ title }</p>
-                      {/* <img src={(image.data.message) as string} /> */}
-                      <p>{ statistics && Object.keys(statistics).map(key =>(<li key={key}>{key}: {(statistics as any)[key]}</li>))}</p>
-                  </Widget>
-                </Link>
-              </Grid>
-            ))}
-          </Grid>
+          { props.children }
         </Container>
       </Box>
     </Box>

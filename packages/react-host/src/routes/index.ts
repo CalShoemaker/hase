@@ -10,19 +10,20 @@ import {
 
 const Home = React.lazy(() => import("../components/page/Home"));
 const About = React.lazy(() => import("../components/page/About"));
-const Dashboard = React.lazy(() => import("../components/page/Dashboard"));
 const Dogs = React.lazy(() => import("../components/page/Dogs"));
+const Dog = React.lazy(() => import("../components/page/Dog"));
 
 const dogsRoute = new Route({
   getParentRoute: () => rootRoute,
   path: "dogs",
+  component: Dogs,
   id: "Dogs"
 })
 
 const dogRoute = new Route({
   getParentRoute: () => dogsRoute,
   path: '$dogId',
-  component: Dogs,
+  component: Dog,
   id: "Dog"
 })
 
@@ -40,25 +41,11 @@ const homeRoute = new Route({
   id: "Home"
 })
 
-const dashboardRoute = new Route({
-  getParentRoute: () => rootRoute,
-  path: PathConstants.DASHBOARD,
-  component: Dashboard,
-  id: "Dashboard"
-})
-
-const dogRouteAlt = new Route({
-  getParentRoute: () => dashboardRoute,
-  path: '$dogId',
-  component: Dogs,
-  id: "Dog"
-})
-
 const rootRoute = new RootRoute({
   component: App,
 })
 
-const routeTree = rootRoute.addChildren([homeRoute, aboutRoute, dashboardRoute.addChildren([dogRouteAlt]), dogsRoute.addChildren([dogRoute])])
+const routeTree = rootRoute.addChildren([homeRoute, aboutRoute, dogsRoute.addChildren([dogRoute])])
 
 const router = new Router({ routeTree })
 
