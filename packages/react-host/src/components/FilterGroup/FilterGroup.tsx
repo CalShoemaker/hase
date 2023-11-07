@@ -16,7 +16,7 @@ export const FilterGroup = (props:any) => {
     };
 
   return (
-    <Box sx={{ margin:3}} >
+    <Box sx={{ }} >
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography variant="h6">

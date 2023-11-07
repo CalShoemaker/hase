@@ -10,19 +10,19 @@ export interface IDogsUpdate {
 }
 
 export interface IDogs {
-  dogs?: Array<IDog>;
+  dogs: IDog[];
 }
 
 export interface IDog {
   title: string;
+  id: string;
+  tags?: string[];
+  statistics?: object;
   facts?: Array<any>
 }
 
-const dogsInterface:Array<IDog> = dogs as Array<IDog>;
-
-const initialState:IDogs = { 
-  dogs: [...dogsInterface] as Array<IDog>
-} 
+const dogsInterface:IDog[] = dogs;
+const initialState:IDog[] = [...dogsInterface];
 
 export const dogsSlice = createSlice({
   name: "dogs",
@@ -30,6 +30,6 @@ export const dogsSlice = createSlice({
   reducers: {},
 });
 
-export const selectDogs = (state: RootState): IDogs => state.dogs;
-
+export const selectDogs = (state: RootState): IDogs => state;
+export const selectDogById = (ID: string) => (state:RootState):IDog => state.dogs.filter(({ id }) => id === ID)[0];
 export default dogsSlice.reducer;

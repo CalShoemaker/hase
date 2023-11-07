@@ -12,26 +12,20 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PetsIcon from '@mui/icons-material/Pets';
-import { FilterGroup } from '../../components/FilterGroup';
+import { FilterGroup } from '../../FilterGroup';
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 
 // NOTE: These are more UserRole components that display as a list. 
 // TODO: Abtract sidebar list components such that they consume UserRole related lists.
-import { mainListItems, secondaryListItems } from '../../components/ListItems/'
-import { Drawer } from '../../components/Drawer';
-import { AppBar } from '../../components/AppBar';
-import { Footer } from '../../components/Footer';
-import { Widget } from "../../components/Widget";
+import { mainListItems, secondaryListItems } from '../../ui/ListItems'
+import { Drawer } from '../../ui/Drawer';
+import { AppBar } from '../../ui/AppBar';
+import { Footer } from '../../Footer';
+import { Widget } from "../../ui/Widget";
 import { Link, useParams } from '@tanstack/react-router';
-import { selectDogs } from '../../store/slices/dogs.slice';
-
-type Dog = {
-  facts: object;
-  title: string;
-  id: string;
-  statistics: string;
-}
+import { selectDogs } from '../../../store/slices/dogs.slice';
+import { IDog } from '../../../store/slices/dogs.slice';
 
 // NOTE: Deprecated Hook
 // const useDogsData = (url:string) => {
@@ -69,9 +63,8 @@ type Dog = {
 
 // TODO: Abstract this further to support multiple UserRoles with corresponding views.
 export const Dashboard = () => {
-  const { dogId } = useParams({ from:'/Dashboard' });
-
-  const data= useSelector(selectDogs);
+  // const { dogId } = useParams({ from:'/Dashboard' });
+  const data = useSelector(selectDogs);
   const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -80,11 +73,7 @@ export const Dashboard = () => {
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar position="absolute" open={open}>
-        <Toolbar
-          sx={{
-            pr: '24px', // keep right padding when drawer closed
-          }}
-        >
+        <Toolbar sx={{ pr: '24px' }} >
           <IconButton
             edge="start"
             color="inherit"
@@ -158,7 +147,7 @@ export const Dashboard = () => {
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4, height:'100vh' }}>
         <Grid container spacing={3}>
-            {data.dogs && (data.dogs as Dog[]).map(({title, facts, id, statistics}) => (
+            {data.dogs && (data.dogs as IDog[]).map(({title, facts, id, statistics}) => (
               <Grid item xs={12} key={title}  md={4} lg={3}>
                 <Link from='/' to={"/dogs/$dogId"} params={{ dogId: id }}>
                   <Widget>
