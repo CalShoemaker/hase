@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../index";
-
-const dogs:Array<IDog> = [];
+import * as tempDB from '../../db/report.1.1.1.1.json'
+const db = JSON.parse(JSON.stringify(tempDB));
+const dogs:Array<IDog> = [...db.dogs];
 
 export interface IDogsUpdate {
   type: string;
@@ -13,7 +14,8 @@ export interface IDogs {
 }
 
 export interface IDog {
-  name: string;
+  title: string;
+  facts?: Array<any>
 }
 
 const dogsInterface:Array<IDog> = dogs as Array<IDog>;
