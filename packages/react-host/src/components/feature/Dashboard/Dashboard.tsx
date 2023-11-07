@@ -61,10 +61,8 @@ import { IDog } from '../../../store/slices/dogs.slice';
 //   return { data, error, loading }
 // };
 
-// TODO: Abstract this further to support multiple UserRoles with corresponding views.
 export const Dashboard = (props:any) => {
   // const { dogId } = useParams({ from:'/Dashboard' });
-  const data = useSelector(selectDogs);
   const [open, setOpen] = useState(true);
   
   const toggleDrawer = () => {
@@ -94,7 +92,7 @@ export const Dashboard = (props:any) => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            Dashboard
+            Dogs
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -127,12 +125,7 @@ export const Dashboard = (props:any) => {
           </IconButton>
         </Toolbar>
         <Divider />
-        <List component="nav">
-          {/* {mainListItems} */}
-          {/* {secondaryListItems} */}
-          <FilterGroup />
-          <Divider sx={{ my: 1 }} />
-        </List>
+        { props.sidebar }
       </Drawer>
       <Box
         component="main"
@@ -147,7 +140,7 @@ export const Dashboard = (props:any) => {
       >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4, height:'100vh' }}>
-          { props.children }
+          { props.main }
         </Container>
       </Box>
     </Box>

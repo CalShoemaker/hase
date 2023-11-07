@@ -1,17 +1,18 @@
 import { Link, useParams } from '@tanstack/react-router';
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { IDog, selectDogs } from '../../../store/slices/dogs.slice';
-import { Grid } from '@mui/material';
+import { IDog, IDogs, selectDogs } from '../../../store/slices/dogs.slice';
+import { Grid, Input } from '@mui/material';
 import { Widget } from '../../ui/Widget';
 
-export const DogsList = () => {
-  const data = useSelector(selectDogs);
+export const DogsList = (props:any) => {
+  //const data = useSelector(selectDogs);
 
   return (
     <Suspense fallback={<h2>🌀 Loading...</h2>}>
+
       <Grid container spacing={3}>
-        {data.dogs && (data.dogs as IDog[]).map(({title, facts, id, statistics}) => (
+        {props.dogs && (props.dogs as IDog[]).map(({title, facts, id, statistics}) => (
           <Grid item xs={12} key={title}  md={4} lg={3}>
             <Link from='/' to={"/dogs/$dogId"} params={{ dogId: id }}>
               <Widget>

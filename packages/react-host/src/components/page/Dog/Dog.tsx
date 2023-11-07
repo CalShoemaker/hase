@@ -1,7 +1,8 @@
-import { useParams } from '@tanstack/react-router';
+import { Link, useParams } from '@tanstack/react-router';
 import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { selectDogById } from '../../../store/slices/dogs.slice';
+import { Typography } from '@mui/material';
 
 export const Dog = () => {
 
@@ -11,7 +12,12 @@ export const Dog = () => {
   return (
     <Suspense fallback={<h2>🌀 Loading...</h2>}>
       <>
-        { title }
+        <Typography
+          variant='h6'
+        >
+          <Link to='/dogs'>Dogs</Link> | { title }
+        </Typography>
+
         <p>{ statistics && Object.keys(statistics).map(key =>(<li key={key}>{key}: {(statistics as any)[key]}</li>))}</p>
         <p>{ facts && Object.keys(facts).map(key =>(<li key={key}>{key}: {(facts as any)[key]}</li>))}</p>
       </>
