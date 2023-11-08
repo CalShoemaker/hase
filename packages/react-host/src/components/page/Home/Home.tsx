@@ -1,4 +1,4 @@
-import { Box, Card, CardActions, CardContent, CardMedia, Container, Paper, Typography } from '@mui/material';
+import { Card, CardActions, CardContent, CardMedia, Container, Paper, Typography } from '@mui/material';
 import React, { Suspense } from 'react';
 import hase from '../../../images/app/hase.webp';
 import { Link } from '@tanstack/react-router';

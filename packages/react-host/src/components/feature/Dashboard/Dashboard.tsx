@@ -1,65 +1,19 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PetsIcon from '@mui/icons-material/Pets';
-import { FilterGroup } from '../../feature/FilterGroup';
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux'
-
-// NOTE: These are more UserRole components that display as a list. 
-// TODO: Abtract sidebar list components such that they consume UserRole related lists.
-import { mainListItems, secondaryListItems } from '../../ui/ListItems'
+import { useState } from "react";
 import { Drawer } from '../../ui/Drawer';
 import { AppBar } from '../../ui/AppBar';
-import { Footer } from '../../ui/Footer';
-import { Widget } from "../../ui/Widget";
-import { Link, Outlet, useParams } from '@tanstack/react-router';
-import { selectDogs } from '../../../store/slices/dogs.slice';
-import { IDog } from '../../../store/slices/dogs.slice';
-
-// NOTE: Deprecated Hook
-// const useDogsData = (url:string) => {
-//   const [data, setData] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null);
-  
-//   useEffect(() => {
-//     const getData = async () => {
-//       try {
-//         const response = await fetch(url)
-        
-//         if (!response.ok) {
-//           throw new Error(
-//             `This is an HTTP error: The status is ${response.status}`
-//           );
-//         }
-
-//         let actualData = await response.json();
-//         setData(actualData);
-//         setError(null);
-
-//       } catch(err:any) {
-//         setError(err.message);
-//         setData([]);
-//       } finally {
-//         setLoading(false);
-//       }  
-//     }
-//     getData()
-//   }, [])
-
-//   return { data, error, loading }
-// };
+import { Link } from '@tanstack/react-router';
 
 export const Dashboard = (props:any) => {
   // const { dogId } = useParams({ from:'/Dashboard' });
@@ -92,7 +46,9 @@ export const Dashboard = (props:any) => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
+            <Link style={{textDecoration:'none', color:'#fff'}} to='/dogs'>
             Dogs
+            </Link>
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -118,7 +74,7 @@ export const Dashboard = (props:any) => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            Hase
+            <Link style={{textDecoration:'none', color:'#000'}} to='/'>Hase</Link>
           </Typography>
           <IconButton onClick={toggleDrawer}>
             <ChevronLeftIcon />
@@ -139,7 +95,7 @@ export const Dashboard = (props:any) => {
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4, height:'100vh' }}>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4, height:'calc(100vh - 135px)' }}>
           { props.main }
         </Container>
       </Box>
