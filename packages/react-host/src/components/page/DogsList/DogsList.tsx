@@ -31,8 +31,8 @@ export const DogsList = (props:any) => {
                 <Typography gutterBottom variant="h5" component="div">
                   { title }
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  <p>{ statistics && Object.keys(statistics).map(key =>(<li key={key}>{key}: {(statistics as any)[key]}</li>))}</p>
+                <Typography component='div' color="text.secondary">
+                  <ul>{ statistics && Object.keys(statistics).map(key =>(<li key={key}>{key}: {(statistics as any)[key]}</li>))}</ul>
                 </Typography>
               </CardContent>
               <CardActions>

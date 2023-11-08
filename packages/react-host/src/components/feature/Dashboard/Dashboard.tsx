@@ -95,7 +95,7 @@ export const Dashboard = (props:any) => {
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4, height:'calc(100vh - 135px)' }}>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4, height:'calc(100vh - 105px)' }}>
           { props.main }
         </Container>
       </Box>

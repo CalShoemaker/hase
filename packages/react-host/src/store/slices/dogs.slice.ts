@@ -3,11 +3,7 @@ import { RootState } from "../index";
 import * as tempDB from '../../db/report.1.1.1.1.json'
 const db = JSON.parse(JSON.stringify(tempDB));
 const dogs:Array<IDog> = [...db.dogs];
-let images = [];
-// dogs.forEach(dog=>{
-//   fetch('https://dog.ceo/api/breed/'+dog.id+'/images/random').then(response=>response.json())
-//   .then(data => images.push(data.message))
-// });
+
 export interface IDogsUpdate {
   type: string;
   payload: IDog;

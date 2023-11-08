@@ -1,11 +1,10 @@
 import { Outlet, useParams } from '@tanstack/react-router';
 import React, { Suspense, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { IDogs, selectDogById, selectDogs } from '../../../store/slices/dogs.slice';
+import { selectDogs } from '../../../store/slices/dogs.slice';
 import Dashboard from '../../feature/Dashboard';
 import DogsList from '../DogsList';
 import Sidebar from '../../feature/Sidebar';
-import { Input } from '@mui/material';
 
 export const Dogs = () => {
   const { dogId } = useParams({ from:'/Dogs/Dog' });
@@ -19,10 +18,7 @@ export const Dogs = () => {
     <Suspense fallback={<h2>🌀 Loading...</h2>}>
       <Dashboard
         main = { dogId ? <Outlet /> : <DogsList dogs={ dogs } /> }
-        sidebar = {<>
-          
-          <Sidebar setFilters={ setFilters }/>
-        </>}
+        sidebar = {<Sidebar setFilters={ setFilters }/>}
       />
     </Suspense>
   );

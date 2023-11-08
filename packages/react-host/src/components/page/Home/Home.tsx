@@ -16,11 +16,11 @@ export const Home = () => {
           <CardContent>
             <Typography gutterBottom variant="h4">
              Hase Süßkartoffel
-             <Typography variant="h6" >
+
+            </Typography>
+            <Typography variant="h6" >
               [ˈhaːzə] <span style={{display:'inline-block', width:20}}></span>[zeusːcar:tof':el] 
             </Typography>
-            </Typography>
-
 
             <Typography variant="body2" color="text.secondary">
               Lizards are a widespread group of squamate reptiles, with over 6,000
