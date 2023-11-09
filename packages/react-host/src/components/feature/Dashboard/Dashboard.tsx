@@ -91,11 +91,12 @@ export const Dashboard = (props:any) => {
               ? theme.palette.grey[100]
               : theme.palette.grey[900],
           flexGrow: 1,
-          overflow: 'auto',
+          overflow: 'auto', 
+          height:'100vh'
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4, height:'calc(100vh - 105px)' }}>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           { props.main }
         </Container>
       </Box>

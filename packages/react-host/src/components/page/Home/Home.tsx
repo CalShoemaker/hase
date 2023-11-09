@@ -18,7 +18,7 @@ export const Home = () => {
              Hase Süßkartoffel
 
             </Typography>
-            <Typography variant="h6" >
+             <Typography variant="h6" >
               [ˈhaːzə] <span style={{display:'inline-block', width:20}}></span>[zeusːcar:tof':el] 
             </Typography>
 

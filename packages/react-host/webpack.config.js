@@ -33,7 +33,14 @@ module.exports = (_, argv) => ({
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: ['file-loader',"babel-loader"],
+          loader: ["babel-loader"],
+        },
+      },      
+      {
+        test: /\.(.jpg|gif)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: ['file-loader'],
         },
       },
     ],
