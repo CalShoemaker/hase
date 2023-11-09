@@ -1,12 +1,8 @@
-import React from "react"
-import PathConstants from "./path.constants"
+import React from "react";
+import PathConstants from "./path.constants";
 import App from "../App";
 
-import {
-  Router,
-  Route,
-  RootRoute,
-} from '@tanstack/react-router'
+import { Router, Route, RootRoute } from "@tanstack/react-router";
 
 const Home = React.lazy(() => import("../components/page/Home"));
 const About = React.lazy(() => import("../components/page/About"));
@@ -17,42 +13,46 @@ const dogsRoute = new Route({
   getParentRoute: () => rootRoute,
   path: "dogs",
   component: Dogs,
-  id: "Dogs"
-})
+  id: "Dogs",
+});
 
 const dogRoute = new Route({
   getParentRoute: () => dogsRoute,
-  path: '$dogId',
+  path: "$dogId",
   component: Dog,
-  id: "Dog"
-})
+  id: "Dog",
+});
 
 const aboutRoute = new Route({
   getParentRoute: () => rootRoute,
   path: PathConstants.ABOUT,
   component: About,
-  id: "About"
-})
+  id: "About",
+});
 
 const homeRoute = new Route({
   getParentRoute: () => rootRoute,
   path: PathConstants.HOME,
   component: Home,
-  id: "Home"
-})
+  id: "Home",
+});
 
 const rootRoute = new RootRoute({
   component: App,
-})
+});
 
-const routeTree = rootRoute.addChildren([homeRoute, aboutRoute, dogsRoute.addChildren([dogRoute])])
+const routeTree = rootRoute.addChildren([
+  homeRoute,
+  aboutRoute,
+  dogsRoute.addChildren([dogRoute]),
+]);
 
-const router = new Router({ routeTree })
+const router = new Router({ routeTree });
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface Register {
-    router: typeof router
+    router: typeof router;
   }
 }
 
-export default router
+export default router;

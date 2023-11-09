@@ -1,7 +1,5 @@
-import React, { Suspense } from 'react'
-import {
-  Outlet
-} from '@tanstack/react-router'
+import React, { Suspense } from "react";
+import { Outlet } from "@tanstack/react-router";
 
 export const App = () => {
   return (
@@ -9,6 +7,6 @@ export const App = () => {
       <Outlet />
     </Suspense>
   );
-}
+};
 
-export default App
+export default App;

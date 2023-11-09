@@ -1,10 +1,10 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import dogsReducer from './slices/dogs.slice'
+import dogsReducer from "./slices/dogs.slice";
 
 export const store = configureStore({
   reducer: {
-    dogs: dogsReducer
-  }
+    dogs: dogsReducer,
+  },
 });
 
 export type AppDispatch = typeof store.dispatch;
@@ -16,4 +16,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 
-export default store
+export default store;

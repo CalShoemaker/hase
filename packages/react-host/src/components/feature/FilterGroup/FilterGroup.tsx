@@ -1,9 +1,15 @@
-import React from 'react';
-import Typography from '@mui/material/Typography';
-import { Accordion, AccordionSummary, AccordionDetails, Checkbox, FormControlLabel } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import React from "react";
+import Typography from "@mui/material/Typography";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export const FilterGroup = (props:any) => {
+export const FilterGroup = (props: any) => {
   const [expanded, setExpanded] = React.useState<string | false>(false);
 
   const handleChange =
@@ -12,19 +18,20 @@ export const FilterGroup = (props:any) => {
     };
 
   return (
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="h6">
-            My Collections
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography sx={{whiteSpace:'initial'}}>
-            <FormControlLabel control={<Checkbox />} label="Lap dogs" />
-          </Typography>
-        </AccordionDetails>
-      </Accordion>    
+    <Accordion
+      expanded={expanded === "panel1"}
+      onChange={handleChange("panel1")}
+    >
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography variant="h6">My Collections</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Typography sx={{ whiteSpace: "initial" }}>
+          <FormControlLabel control={<Checkbox />} label="Lap dogs" />
+        </Typography>
+      </AccordionDetails>
+    </Accordion>
   );
-}
+};
 
-export default FilterGroup
+export default FilterGroup;

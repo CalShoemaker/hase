@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense } from "react";
 
 export const About: React.FC = () => {
   return (
@@ -6,6 +6,6 @@ export const About: React.FC = () => {
       <div>Hello from About!</div>
     </Suspense>
   );
-}
+};
 
-export default About
+export default About;

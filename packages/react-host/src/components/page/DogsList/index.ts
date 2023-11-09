@@ -1,1 +1,1 @@
-export { DogsList as default} from './DogsList'
+export { DogsList as default } from "./DogsList";

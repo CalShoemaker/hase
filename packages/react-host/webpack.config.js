@@ -35,12 +35,12 @@ module.exports = (_, argv) => ({
         use: {
           loader: ["babel-loader"],
         },
-      },      
+      },
       {
         test: /\.(.jpg|gif)$/,
         exclude: /node_modules/,
         use: {
-          loader: ['file-loader'],
+          loader: ["file-loader"],
         },
       },
     ],

@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../index";
-import * as tempDB from '../../db/report.1.1.1.1.json'
+import * as tempDB from "../../db/report.1.1.1.1.json";
 const db = JSON.parse(JSON.stringify(tempDB));
-const dogs:Array<IDog> = [...db.dogs];
+const dogs: Array<IDog> = [...db.dogs];
 
 export interface IDogsUpdate {
   type: string;
@@ -18,7 +18,7 @@ interface IRating {
   stars?: string;
 }
 
- interface ICharacteristics{
+interface ICharacteristics {
   content?: Array<string>;
   rating?: Array<IRating>;
 }
@@ -34,7 +34,7 @@ interface ISpecialCards {
 }
 
 interface ISpecial {
-  cards?: Array<ISpecialCards>
+  cards?: Array<ISpecialCards>;
 }
 
 export interface IDog {
@@ -42,13 +42,13 @@ export interface IDog {
   id: string;
   tags?: string[];
   statistics?: object;
-  facts?: Array<any>,
-  images?: Array<string>,
-  special?: ISpecial
+  facts?: Array<any>;
+  images?: Array<string>;
+  special?: ISpecial;
 }
 
-const dogsInterface:IDog[] = dogs;
-const initialState:IDog[] = [...dogsInterface];
+const dogsInterface: IDog[] = dogs;
+const initialState: IDog[] = [...dogsInterface];
 
 export const dogsSlice = createSlice({
   name: "dogs",
@@ -59,5 +59,8 @@ export const dogsSlice = createSlice({
 // NOTE: Returning root state is anti pattern. Right now store is just a wrapper for an API resource.
 // TODO: Handle console errors.
 export const selectDogs = (state: RootState): IDogs => state;
-export const selectDogById = (ID: string) => (state:RootState):IDog => state.dogs.filter(({ id }) => id === ID)[0];
+export const selectDogById =
+  (ID: string) =>
+  (state: RootState): IDog =>
+    state.dogs.filter(({ id }) => id === ID)[0];
 export default dogsSlice.reducer;

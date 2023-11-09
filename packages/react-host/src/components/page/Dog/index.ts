@@ -1,1 +1,1 @@
-export  { Dog as default } from './Dog';
+export { Dog as default } from "./Dog";

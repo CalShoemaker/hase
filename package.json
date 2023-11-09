@@ -5,11 +5,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "boot": "(cd packages/nest-api && json-server --watch data/report.1.1.1.1.json) & (cd packages/react-host && npm run start)"
-  },  
+  },
   "workspaces": [
     "packages/*"
   ],
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.0.0-alpha.6"
+  }
 }
