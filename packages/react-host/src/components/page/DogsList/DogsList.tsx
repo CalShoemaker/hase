@@ -2,7 +2,8 @@
 import { Link } from '@tanstack/react-router';
 import React, { Suspense } from 'react';
 import { IDog } from '../../../store/slices/dogs.slice';
-import { Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { Card, CardActions, CardContent, CardMedia, Chip, Grid, Stack, Typography } from '@mui/material';
+import FaceIcon from '@mui/icons-material/Face';
 
 const imgSrc = (id:string) => { 
   try { return require('../../../images/'+id+'/_1.jpg') }
@@ -28,12 +29,14 @@ export const DogsList = (props:any) => {
                 </Link>
               </CardMedia>
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h5">
                   { title }
                 </Typography>
-                <Typography component='div' color="text.secondary">
-                  <ul>{ statistics && Object.keys(statistics).map(key =>(<li key={key}>{key}: {(statistics as any)[key]}</li>))}</ul>
-                </Typography>
+                <Stack direction="column" spacing={1}>
+                  { statistics && Object.keys(statistics).map(key =>(<Chip key={key} color='info' icon={<FaceIcon />} label={(statistics as any)[key]} />))}
+                </Stack>
+
+
               </CardContent>
               <CardActions>
                 <Link from='/' to={"/dogs/$dogId"} params={{ dogId: id }}>Learn More</Link>
