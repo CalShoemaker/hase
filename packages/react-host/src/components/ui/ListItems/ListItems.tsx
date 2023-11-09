@@ -30,7 +30,6 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Reports" />
     </ListItemButton>
-
   </>
 );
 

@@ -40,17 +40,17 @@ export const DogsList = (props: any) => {
                   <Typography gutterBottom variant="h5">
                     {title}
                   </Typography>
-                  <Stack direction="column" spacing={1}>
+                  {/* <Stack direction="column" spacing={1}>
                     {statistics &&
                       Object.keys(statistics).map((key) => (
                         <Chip
                           key={key}
                           color="info"
                           icon={<FaceIcon />}
-                          label={(statistics as any)[key]}
+                          label={(statistics as any)[key] || ''}
                         />
                       ))}
-                  </Stack>
+                  </Stack> */}
                 </CardContent>
                 <CardActions>
                   <Link from="/" to={"/dogs/$dogId"} params={{ dogId: id }}>

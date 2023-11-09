@@ -1,35 +1,36 @@
 import { Outlet, useParams } from "@tanstack/react-router";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { selectDogs } from "../../../store/slices/dogs.slice";
+import {
+  selectDogs,
+  setDogs,
+  fetchDogs,
+} from "../../../store/slices/dogs.slice";
+import { selectFilters, setFilters } from "../../../store/slices/filters.slice";
 import Dashboard from "../../feature/Dashboard";
 import DogsList from "../DogsList";
 import Sidebar from "../../feature/Sidebar";
-
-export const Dogs = () => {
+import { useDispatch } from "react-redux";
+import useAPI from "../../hooks/useAPI";
+//https://redux.js.org/tutorials/essentials/part-8-rtk-query-advanced
+export function Dogs() {
   const { dogId } = useParams({ from: "/Dogs/Dog" });
   const data = useSelector(selectDogs);
-  const [filter, setFilter] = useState("");
+  const filters = useSelector(selectFilters);
+  const dispatch = useDispatch();
 
-  // NOTE: This stringify filter was a cute bootstrap for the PoC.
-  //       Filters by flat object to string then checks the arg.
-  //       Consider string length of flat object. Bad, working, code.
-  const dogsFlatByRaw = data.dogs.filter(
-    (f) => JSON.stringify(f).includes(filter) || filter === "",
-  );
-
-  const setFilters = (payload: string) => {
-    setFilter(payload);
-  };
+  useEffect(() => {
+    dispatch<any>(fetchDogs(filters.filters));
+  }, [filters.filters]);
 
   return (
     <Suspense fallback={<h2>🌀 Loading...</h2>}>
       <Dashboard
-        main={dogId ? <Outlet /> : <DogsList dogs={dogsFlatByRaw} />}
-        sidebar={<Sidebar setFilters={setFilters} />}
+        main={dogId ? <Outlet /> : <DogsList dogs={data.dogs} />}
+        sidebar={<Sidebar setFilters={setFilters} filters={filters} />}
       />
     </Suspense>
   );
-};
+}
 
 export default Dogs;

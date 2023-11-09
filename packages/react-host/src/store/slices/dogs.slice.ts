@@ -1,8 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../index";
-import * as tempDB from "../../db/report.1.1.1.1.json";
-const db = JSON.parse(JSON.stringify(tempDB));
-const dogs: Array<IDog> = [...db.dogs];
+
+const dogs: Array<IDog> = [];
 
 export interface IDogsUpdate {
   type: string;
@@ -47,8 +46,6 @@ export interface IDog {
   special?: ISpecial;
 }
 
-const dogsInterface: IDog[] = dogs;
-
 export interface IFilters {
   life?: number[];
   height?: number[];
@@ -59,31 +56,66 @@ export interface IFilters {
 
 export interface IHase {
   dogs: IDog[];
-  filters: IFilters;
+  isLoading: boolean;
+  isError: boolean;
 }
 
+const dogsInterface: IDog[] = dogs;
 const initialState: IHase = {
   dogs: [...dogsInterface],
-  filters: {
-    life: [2, 18],
-    height: [6, 20],
-    weight: [10, 25],
-    breed: "mixed",
-  },
+  isError: false,
+  isLoading: false
 };
+
+export const fetchDogs = createAsyncThunk("fetchDogs", async (filters:IFilters) => {
+  const { life, height, weight, breed } = filters;
+  
+  const minLife = life ? life[0] : 0;
+  const maxLife = life ? life[1] : 18;
+  const minHeight = height ? height[0] : 0;
+  const maxHeight = height ? height[1] : 18;
+  const minWeight = weight ? weight[0] : 0;
+  const maxWeight = weight ? weight[1] : 18;
+
+  const filter = '?statistics.Breed=' + breed + 
+        '&statistics.Life.min_gte=' + minLife + '&statistics.Life.max_lte=' + maxLife +
+        '&statistics.Height.min_gte=' + minHeight + '&statistics.Height.max_lte=' + maxHeight +
+        '&statistics.Weight.min_gte=' + minWeight + '&statistics.Weight.max_lte=' + maxWeight;
+
+  const res = await fetch(`http://localhost:3000/dogs${filter}`);
+  return res?.json();
+});
 
 export const dogsSlice = createSlice({
   name: "dogs",
   initialState,
-  reducers: {},
+  reducers: {
+    reset: () => ({ ...initialState }),
+    setDogs:(state:IHase, action:PayloadAction<Array<IDog>>) => ({
+      ...state,
+      dogs: action.payload
+    })
+  },
+  extraReducers: (builder) => {
+   builder.addCase(fetchDogs.pending, (state, action) => {
+    state.isLoading = true;
+   })
+   builder.addCase(fetchDogs.fulfilled, (state, action) => {
+    state.isLoading = false;
+    state.dogs = action.payload;
+   })
+   builder.addCase(fetchDogs.rejected, (state, action) => {
+    state.isError = true;
+   })
+  }
 });
 
-// NOTE: Returning root state is anti pattern. Right now store is just a wrapper for an API resource.
-// TODO: Handle console errors.
 export const selectDogs = (state: RootState): IDogs => state.dogs;
 export const selectFilteredDogs = (state: RootState): IDogs => state.dogs;
 export const selectDogById =
   (ID: string) =>
   (state: RootState): IDog =>
     state.dogs.dogs.filter(({ id }) => id === ID)[0];
+
+export const { setDogs } = dogsSlice.actions;
 export default dogsSlice.reducer;

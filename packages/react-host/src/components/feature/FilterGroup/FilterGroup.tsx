@@ -1,43 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Slider, ToggleButtonGroup, ToggleButton } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setFilters } from "../../../store/slices/filters.slice";
 
 function valuetext(value: number) {
   return `${value}`;
 }
 
-// Custom Hook
-function useFilterGroup() {
-  const [height, setHeight] = React.useState<number[]>([2, 15]);
-  const [weight, setWeight] = React.useState<number[]>([2, 15]);
-  const [life, setLife] = React.useState<number[]>([2, 15]);
-  const [breed, setBreed] = React.useState("web");
-  return {
-    height,
-    setHeight,
-    weight,
-    setWeight,
-    life,
-    setLife,
-    breed,
-    setBreed,
-  };
-}
-
 // TODO: Refactor any type
-export const FilterGroup = (props: any) => {
-  //useHook(()=>{
-  const {
-    height,
-    setHeight,
-    weight,
-    setWeight,
-    life,
-    setLife,
-    breed,
-    setBreed,
-  } = useFilterGroup();
-  //},[])
+export function FilterGroup(props: any) {
+  const dispatch = useDispatch();
+  const { height, weight, life, breed } = props.filters;
 
   // Currywurst die beste
   const handleChange =
@@ -46,16 +20,24 @@ export const FilterGroup = (props: any) => {
       event: React.MouseEvent<HTMLElement> | Event,
       newValue: string | number | number[],
     ) => {
+      let { height, weight, life, breed } = props.filters;
+
       switch (filter) {
         case "height":
-          return setHeight(newValue as number[]);
+          height = newValue as number[];
+          break;
         case "weight":
-          return setWeight(newValue as number[]);
+          weight = newValue as number[];
+          break;
         case "life":
-          return setLife(newValue as number[]);
+          life = newValue as number[];
+          break;
         case "breed":
-          return setBreed(newValue as string);
+          breed = newValue as string;
+          break;
       }
+
+      return dispatch<any>(setFilters({ height, weight, breed, life }));
     };
 
   return (
@@ -69,11 +51,12 @@ export const FilterGroup = (props: any) => {
           value={breed}
           exclusive
           onChange={handleChange("breed")}
-          defaultValue={"mixed"}
+          defaultValue={"Mixed"}
           aria-label="Breed"
         >
-          <ToggleButton value="pure">Pure</ToggleButton>
-          <ToggleButton value="mixed">Mixed</ToggleButton>
+          <ToggleButton value="Pure">Pure</ToggleButton>
+          <ToggleButton value="Hybrid">Hybrid</ToggleButton>
+          <ToggleButton value="Mixed">Mixed</ToggleButton>
         </ToggleButtonGroup>
       </Box>
       <Box py={1}>
@@ -130,5 +113,5 @@ export const FilterGroup = (props: any) => {
       </Box> */}
     </Box>
   );
-};
+}
 export default FilterGroup;

@@ -11,7 +11,6 @@ import LayersIcon from "@mui/icons-material/Layers";
 import { FilterGroup } from "../FilterGroup";
 import { Link } from "@tanstack/react-router";
 
-
 // TODO: Use Router
 const context = window.location.pathname === "/dogs";
 
@@ -27,13 +26,17 @@ export const Sidebar = (props: any) => {
           <ListItemText primary="Dashboard" />
         </Link>
       </ListItemButton>
-      {context ? <FilterGroup /> : null}
+      {context ? (
+        <FilterGroup
+          filters={props.filters.filters}
+          setFilters={props.setFilters}
+        />
+      ) : null}
       <Divider sx={{ my: 1 }} />
       <ListItemButton>
         <ListItemIcon>
           <LayersIcon />
         </ListItemIcon>
-        // TODO: Add saved sets
         <ListItemText primary="Integrations" />
       </ListItemButton>
     </List>

@@ -42,7 +42,7 @@ export function Dog() {
   const { title, statistics, facts, id, tags, special } = useSelector(
     selectDogById(dogId!),
   );
-  
+
   const [imgs] = useState(useDynamicDogs(id));
 
   // TODO: Refactor any types with types from store slice
@@ -53,17 +53,17 @@ export function Dog() {
           <Stack direction="column" spacing={2}>
             <Typography variant="h2">{title}</Typography>
             <Divider variant="middle" />
-            <Stack direction="row" spacing={1}>
+            {/* <Stack direction="row" spacing={1}>
               {statistics &&
                 Object.keys(statistics).map((key) => (
                   <Chip
                     key={key}
                     color="info"
                     icon={<FaceIcon />}
-                    label={(statistics as any)[key]}
+                    label={(statistics as any)[key] || ''}
                   />
                 ))}
-            </Stack>
+            </Stack> */}
             <Stack direction="row" spacing={1} flexWrap={"wrap"}>
               {tags &&
                 tags.map((item: any, i: number) => (
@@ -71,7 +71,7 @@ export function Dog() {
                     color="primary"
                     sx={{ flexFlow: "wrap" }}
                     key={i}
-                    label={item}
+                    label={item ? item : ""}
                   />
                 ))}
             </Stack>
