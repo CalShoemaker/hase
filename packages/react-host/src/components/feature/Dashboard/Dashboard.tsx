@@ -13,10 +13,14 @@ import PetsIcon from "@mui/icons-material/Pets";
 import { useState } from "react";
 import { Drawer } from "../../ui/Drawer";
 import { AppBar } from "../../ui/AppBar";
-import { Link } from "@tanstack/react-router";
+import { Link, routerContext } from "@tanstack/react-router";
 
+// TODO: Refactor any type
 export const Dashboard = (props: any) => {
   // const { dogId } = useParams({ from:'/Dashboard' });
+
+  // TODO: Use Router path
+  const path = window.location.pathname;
   const [open, setOpen] = useState(true);
 
   const toggleDrawer = () => {
@@ -50,11 +54,13 @@ export const Dashboard = (props: any) => {
               Dogs
             </Link>
           </Typography>
-          <IconButton color="inherit">
+          {/* 
+            TODO: UserRole badges
+            <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
             </Badge>
-          </IconButton>
+          </IconButton> */}
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

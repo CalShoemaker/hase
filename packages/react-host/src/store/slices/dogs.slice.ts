@@ -48,7 +48,29 @@ export interface IDog {
 }
 
 const dogsInterface: IDog[] = dogs;
-const initialState: IDog[] = [...dogsInterface];
+
+export interface IFilters {
+  life?: number[];
+  height?: number[];
+  weight?: number[];
+  breed?: string;
+  tags?: string[];
+}
+
+export interface IHase {
+  dogs: IDog[];
+  filters: IFilters;
+}
+
+const initialState: IHase = {
+  dogs: [...dogsInterface],
+  filters: {
+    life: [2, 18],
+    height: [6, 20],
+    weight: [10, 25],
+    breed: "mixed",
+  },
+};
 
 export const dogsSlice = createSlice({
   name: "dogs",
@@ -58,9 +80,10 @@ export const dogsSlice = createSlice({
 
 // NOTE: Returning root state is anti pattern. Right now store is just a wrapper for an API resource.
 // TODO: Handle console errors.
-export const selectDogs = (state: RootState): IDogs => state;
+export const selectDogs = (state: RootState): IDogs => state.dogs;
+export const selectFilteredDogs = (state: RootState): IDogs => state.dogs;
 export const selectDogById =
   (ID: string) =>
   (state: RootState): IDog =>
-    state.dogs.filter(({ id }) => id === ID)[0];
+    state.dogs.dogs.filter(({ id }) => id === ID)[0];
 export default dogsSlice.reducer;

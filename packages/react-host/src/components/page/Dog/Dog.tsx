@@ -28,6 +28,7 @@ const imgSrc = (uri: string) => {
   }
 };
 
+// TODO: Refactor limit with folder length
 const useDynamicDogs = (id: string) => {
   let imgs = [] as object[];
   for (let i = 1; i <= 9; i++) {
@@ -41,8 +42,10 @@ export function Dog() {
   const { title, statistics, facts, id, tags, special } = useSelector(
     selectDogById(dogId!),
   );
+  
   const [imgs] = useState(useDynamicDogs(id));
 
+  // TODO: Refactor any types with types from store slice
   return (
     <Suspense fallback={<h2>🌀 Loading...</h2>}>
       <Paper>
@@ -61,12 +64,12 @@ export function Dog() {
                   />
                 ))}
             </Stack>
-            <Stack direction="row" spacing={1}>
+            <Stack direction="row" spacing={1} flexWrap={"wrap"}>
               {tags &&
                 tags.map((item: any, i: number) => (
                   <Chip
                     color="primary"
-                    sx={{ margin: 2, flexWrap: 1 }}
+                    sx={{ flexFlow: "wrap" }}
                     key={i}
                     label={item}
                   />
@@ -90,7 +93,7 @@ export function Dog() {
                 {special &&
                   special.cards &&
                   special.cards.map((card: any, c: number) => (
-                    <>
+                    <React.Fragment key={c}>
                       {card.rating &&
                         card.rating.map((rating: any, r: number) => (
                           <span key={r}>
@@ -104,7 +107,7 @@ export function Dog() {
                             />
                           </span>
                         ))}
-                    </>
+                    </React.Fragment>
                   ))}
               </Stack>
             </Stack>
@@ -114,7 +117,7 @@ export function Dog() {
           {special &&
             special.cards &&
             special.cards.map((card: any, c: number) => (
-              <section key={c}>
+              <React.Fragment key={c}>
                 {card.accordions &&
                   card.accordions.map((accordion: any, a: number) => (
                     <Accordion key={a}>
@@ -127,11 +130,11 @@ export function Dog() {
                       </AccordionSummary>
                       <AccordionDetails>
                         <Stack direction="row" spacing={10}>
-                          <Typography variant="body2" sx={{}}>
+                          <Typography>
                             {accordion.characteristics.rating &&
                               accordion.characteristics.rating.map(
                                 (rating: any, z: number) => (
-                                  <span key={z}>
+                                  <React.Fragment key={z}>
                                     <Typography component="legend">
                                       {rating.title}
                                     </Typography>
@@ -140,15 +143,17 @@ export function Dog() {
                                       value={rating.stars}
                                       readOnly
                                     />
-                                  </span>
+                                  </React.Fragment>
                                 ),
                               )}
                           </Typography>
-                          <Typography variant="body2">
+                          <Typography>
                             {accordion.characteristics.content &&
                               accordion.characteristics.content.map(
                                 (content: any, p: number) => (
-                                  <p key={p}>{content}</p>
+                                  <React.Fragment key={p}>
+                                    {content}
+                                  </React.Fragment>
                                 ),
                               )}
                           </Typography>
@@ -156,7 +161,7 @@ export function Dog() {
                       </AccordionDetails>
                     </Accordion>
                   ))}
-              </section>
+              </React.Fragment>
             ))}
         </Stack>
         <ImageList cols={3}>

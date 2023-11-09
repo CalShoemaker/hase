@@ -22,8 +22,8 @@ const imgSrc = (id: string) => {
   }
 };
 
+// TODO: Refactor any type
 export const DogsList = (props: any) => {
-  //const data = useSelector(selectDogs);
   return (
     <Suspense fallback={<h2>🌀 Loading...</h2>}>
       <Grid container spacing={3}>

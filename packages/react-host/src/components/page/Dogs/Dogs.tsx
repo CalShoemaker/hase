@@ -14,7 +14,9 @@ export const Dogs = () => {
   // NOTE: This stringify filter was a cute bootstrap for the PoC.
   //       Filters by flat object to string then checks the arg.
   //       Consider string length of flat object. Bad, working, code.
-  const dogsFlatByRaw = data.dogs.filter((f) => JSON.stringify(f).includes(filter) || filter === "");
+  const dogsFlatByRaw = data.dogs.filter(
+    (f) => JSON.stringify(f).includes(filter) || filter === "",
+  );
 
   const setFilters = (payload: string) => {
     setFilter(payload);

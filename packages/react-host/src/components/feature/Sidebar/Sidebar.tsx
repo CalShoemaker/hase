@@ -11,8 +11,11 @@ import LayersIcon from "@mui/icons-material/Layers";
 import { FilterGroup } from "../FilterGroup";
 import { Link } from "@tanstack/react-router";
 
-const context = window.location.pathname === "/dogs" ;
 
+// TODO: Use Router
+const context = window.location.pathname === "/dogs";
+
+// TODO: Refactor any type
 export const Sidebar = (props: any) => {
   return (
     <List component="nav">
@@ -24,14 +27,15 @@ export const Sidebar = (props: any) => {
           <ListItemText primary="Dashboard" />
         </Link>
       </ListItemButton>
-      { context ? <FilterGroup /> : null }
+      {context ? <FilterGroup /> : null}
       <Divider sx={{ my: 1 }} />
       <ListItemButton>
         <ListItemIcon>
           <LayersIcon />
         </ListItemIcon>
+        // TODO: Add saved sets
         <ListItemText primary="Integrations" />
-      </ListItemButton> 
+      </ListItemButton>
     </List>
   );
 };
