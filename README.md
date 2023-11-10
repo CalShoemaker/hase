@@ -4,7 +4,7 @@
 
 ### About
 
-Hase is a Proof of Concept/Prototype of a dog finding & building service. Hase allows you to define parameters to narrow down dogs to an ideal set. Browse dogs & learn, save searches, and build your perfect dog with the help of AI to see which breed combinations & generations will be required to produce your dream dog! Bow **WoW**, indeed. Upload photos, register your dog, and become part of the community!
+Hase is a Proof of Concept/Prototype of a dog finding & building service. Hase allows you to define parameters to narrow down dogs to an ideal set. Browse dogs & learn, save searches, and build your perfect dog with the power of AI! See which breed combinations & generations will be required to produce your dream dog! Bow **WoW**, indeed. Upload photos, register your dog, and become part of the community!
 
 #### Notes
 

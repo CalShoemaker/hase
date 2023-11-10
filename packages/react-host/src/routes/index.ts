@@ -4,7 +4,6 @@ import App from "../App";
 import { Router, Route, RootRoute } from "@tanstack/react-router";
 
 const Home = React.lazy(() => import("../components/page/Home"));
-const About = React.lazy(() => import("../components/page/About"));
 const Dogs = React.lazy(() => import("../components/page/Dogs"));
 const Dog = React.lazy(() => import("../components/page/Dog"));
 
