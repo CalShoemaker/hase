@@ -3,6 +3,7 @@ import { Action, applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
 const baseUrl = "http://localhost:3000";
 
+// TODO: Use this pattern to scope the DogsAPI logic.
 class DogsAPI {
   url = `${baseUrl}/dogs`;
 
@@ -19,9 +20,9 @@ class DogsAPI {
       case 401:
         return "Please login again.";
       case 403:
-        return "You do not have permission to view the photos.";
+        return "You do not have permission to view the these dogs.";
       default:
-        return "There was an error retrieving the photos. Please try again.";
+        return "There was an error retrieving the dogs. Please try again.";
     }
   }
 
@@ -97,9 +98,8 @@ function logState() {
 
 store.subscribe(logState);
 
-async function test() {
-  await store.dispatch(loadDogs());
-  console.log("loaded photos");
-}
+// async function test() {
+//   await store.dispatch(loadDogs());
+// }
 
-test();
+// test();

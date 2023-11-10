@@ -69,7 +69,7 @@ const initialState: IHase = {
 
 export const fetchDogs = createAsyncThunk("fetchDogs", async (filters:IFilters) => {
   const { life, height, weight, breed } = filters;
-  
+  // TODO: Improve this...
   const minLife = life ? life[0] : 0;
   const maxLife = life ? life[1] : 18;
   const minHeight = height ? height[0] : 0;

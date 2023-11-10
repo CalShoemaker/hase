@@ -13,6 +13,7 @@ import React, { Suspense } from "react";
 import hase from "../../../images/app/hase.webp";
 import { Link } from "@tanstack/react-router";
 
+// TODO: Abstract sx={{}} everywhere into theme
 export const Home = () => {
   return (
     <Suspense fallback={<h2>🌀 Loading...</h2>}>

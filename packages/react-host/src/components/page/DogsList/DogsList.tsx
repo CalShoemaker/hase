@@ -7,12 +7,9 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Chip,
   Grid,
-  Stack,
   Typography,
 } from "@mui/material";
-import FaceIcon from "@mui/icons-material/Face";
 
 const imgSrc = (id: string) => {
   try {
@@ -23,6 +20,7 @@ const imgSrc = (id: string) => {
 };
 
 // TODO: Refactor any type
+// TODO: Legit loading component.
 export const DogsList = (props: any) => {
   return (
     <Suspense fallback={<h2>🌀 Loading...</h2>}>

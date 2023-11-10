@@ -1,7 +1,6 @@
 import React from "react";
 import PathConstants from "./path.constants";
 import App from "../App";
-
 import { Router, Route, RootRoute } from "@tanstack/react-router";
 
 const Home = React.lazy(() => import("../components/page/Home"));
@@ -23,13 +22,6 @@ const dogRoute = new Route({
   id: "Dog",
 });
 
-const aboutRoute = new Route({
-  getParentRoute: () => rootRoute,
-  path: PathConstants.ABOUT,
-  component: About,
-  id: "About",
-});
-
 const homeRoute = new Route({
   getParentRoute: () => rootRoute,
   path: PathConstants.HOME,
@@ -43,7 +35,6 @@ const rootRoute = new RootRoute({
 
 const routeTree = rootRoute.addChildren([
   homeRoute,
-  aboutRoute,
   dogsRoute.addChildren([dogRoute]),
 ]);
 
