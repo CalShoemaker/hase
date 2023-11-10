@@ -12,6 +12,8 @@ function valuetext(value: number) {
 export function FilterGroup(props: any) {
   const dispatch = useDispatch();
   const { height, weight, life, breed } = props.filters;
+  // Temp hack to disable filter on /dogs/:dog
+  const suppress = window.location.pathname !== '/dogs';
 
   // Currywurst die beste
   const handleChange =
@@ -37,9 +39,8 @@ export function FilterGroup(props: any) {
           break;
       }
 
-      return dispatch<any>(setFilters({ height, weight, breed, life }));
+      return !suppress && dispatch<any>(setFilters({ height, weight, breed, life }));
     };
-
   return (
     <Box sx={{ backgroundColor: "#f5f5f5", p: 2 }}>
       <Box py={1}>
@@ -69,6 +70,8 @@ export function FilterGroup(props: any) {
           onChange={handleChange("life")}
           valueLabelDisplay="auto"
           getAriaValueText={valuetext}
+          step={1}
+          marks
           min={0}
           max={20}
         />
@@ -83,6 +86,8 @@ export function FilterGroup(props: any) {
           onChange={handleChange("height")}
           valueLabelDisplay="auto"
           getAriaValueText={valuetext}
+          step={1}
+          marks
           min={0}
           max={40}
         />
@@ -97,6 +102,8 @@ export function FilterGroup(props: any) {
           onChange={handleChange("weight")}
           valueLabelDisplay="auto"
           getAriaValueText={valuetext}
+          step={5}
+          marks
           min={0}
           max={170}
         />
