@@ -70,6 +70,7 @@ const initialState: IHase = {
 export const fetchDogs = createAsyncThunk("fetchDogs", async (filters:IFilters) => {
   const { life, height, weight, breed } = filters;
   // TODO: Improve this...
+  // TODO: Cache results, debounce, throttle.
   const minLife = life ? life[0] : 0;
   const maxLife = life ? life[1] : 18;
   const minHeight = height ? height[0] : 0;
@@ -82,6 +83,7 @@ export const fetchDogs = createAsyncThunk("fetchDogs", async (filters:IFilters) 
         '&statistics.Height.min_gte=' + minHeight + '&statistics.Height.max_lte=' + maxHeight +
         '&statistics.Weight.min_gte=' + minWeight + '&statistics.Weight.max_lte=' + maxWeight;
 
+  // TODO: Use Nest instead of JSON-Server, add auth.
   const res = await fetch(`http://localhost:3000/dogs${filter}`);
   return res?.json();
 });
