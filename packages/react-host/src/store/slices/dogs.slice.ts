@@ -24,7 +24,7 @@ interface ICharacteristics {
 
 interface IAccordion {
   title?: string;
-  characteristics?: string;
+  characteristics?: ICharacteristics;
 }
 
 interface ISpecialCards {
@@ -36,11 +36,24 @@ interface ISpecial {
   cards?: Array<ISpecialCards>;
 }
 
+interface IRange {
+  min: number;
+  max: number;
+  unit: string
+}
+
+export interface IStatistics {
+  Breed: string;
+  Height: IRange;
+  Weight: IRange;
+  Life: IRange;
+}
+
 export interface IDog {
   title: string;
   id: string;
   tags?: string[];
-  statistics?: object;
+  statistics?: IStatistics;
   facts?: Array<any>;
   images?: Array<string>;
   special?: ISpecial;

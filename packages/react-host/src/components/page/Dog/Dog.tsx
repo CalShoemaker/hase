@@ -8,7 +8,6 @@ import {
   AccordionSummary,
   Box,
   Chip,
-  Container,
   Divider,
   ImageList,
   ImageListItem,
@@ -17,7 +16,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import FaceIcon from "@mui/icons-material/Face";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const imgSrc = (uri: string) => {
@@ -49,7 +47,7 @@ export function Dog() {
   return (
     <Suspense fallback={<h2>🌀 Loading...</h2>}>
       <Paper>
-        <Divider component="div" role="presentation">
+        <Box padding={5}>
           <Stack direction="column" spacing={2}>
             <Typography variant="h2">{title}</Typography>
             <Divider variant="middle" />
@@ -77,8 +75,8 @@ export function Dog() {
             </Stack>
             <Divider variant="middle" />
             <Stack direction="row" spacing={3}>
-              <Stack>
-                <img src={imgSrc(id + "/_1.jpg")} />
+              <Stack  style={{maxWidth:'50%'}}>
+                <img alt={id} src={imgSrc(id + "/_1.jpg")} />
                 {facts &&
                   Object.keys(facts).map((key) => (
                     <Typography
@@ -112,7 +110,7 @@ export function Dog() {
               </Stack>
             </Stack>
           </Stack>
-        </Divider>
+        </Box>
         <Stack direction="column" padding={2} spacing={2}>
           {special &&
             special.cards &&
@@ -167,7 +165,7 @@ export function Dog() {
         <ImageList cols={3}>
           {imgs.map((item: any) => (
             <ImageListItem key={item.id}>
-              <img src={imgSrc(item.id)} />
+              <img alt={id} src={imgSrc(item.id)} />
             </ImageListItem>
           ))}
         </ImageList>

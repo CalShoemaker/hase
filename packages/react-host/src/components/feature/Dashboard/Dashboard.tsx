@@ -4,23 +4,20 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import PetsIcon from "@mui/icons-material/Pets";
 import { useState } from "react";
 import { Drawer } from "../../ui/Drawer";
 import { AppBar } from "../../ui/AppBar";
-import { Link, routerContext } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 
 // TODO: Refactor any type
 export const Dashboard = (props: any) => {
   // const { dogId } = useParams({ from:'/Dashboard' });
 
   // TODO: Use Router path
-  const path = window.location.pathname;
   const [open, setOpen] = useState(true);
 
   const toggleDrawer = () => {

@@ -23,7 +23,7 @@ export function Dogs() {
   // TODO: Cache results, debounce, throttle.
   useEffect(() => {
     dispatch<any>(fetchDogs(filters.filters));
-  }, [filters.filters]);
+  }, [dispatch]);
 
   return (
     <Suspense fallback={<h2>🌀 Loading...</h2>}>

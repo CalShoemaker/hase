@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Slider, ToggleButtonGroup, ToggleButton } from "@mui/material";
 import { useDispatch } from "react-redux";
@@ -62,7 +62,7 @@ export function FilterGroup(props: any) {
       </Box>
       <Box py={1}>
         <Typography id="non-linear-slider" gutterBottom>
-          Age Range in Years:
+          Age Range in Years: <strong>{ life[0] }-{ life[1] }</strong>
         </Typography>
         <Slider
           getAriaLabel={() => "Age Range"}
@@ -78,7 +78,7 @@ export function FilterGroup(props: any) {
       </Box>
       <Box py={1}>
         <Typography id="non-linear-slider" gutterBottom>
-          Height Range in Inches:
+          Height Range in Inches: <strong>{ height[0] }-{ height[1] }</strong>
         </Typography>
         <Slider
           getAriaLabel={() => "Height Range"}
@@ -94,7 +94,7 @@ export function FilterGroup(props: any) {
       </Box>
       <Box py={1}>
         <Typography id="non-linear-slider" gutterBottom>
-          Weight Range in Pounds:
+          Weight Range in Pounds: <strong>{ weight[0] }-{ weight[1] }</strong>
         </Typography>
         <Slider
           getAriaLabel={() => "Weight Range"}

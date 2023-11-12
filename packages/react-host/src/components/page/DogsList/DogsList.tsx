@@ -1,13 +1,15 @@
 "Use Server";
 import { Link } from "@tanstack/react-router";
 import React, { Suspense } from "react";
-import { IDog } from "../../../store/slices/dogs.slice";
+import { IDog, IStatistics } from "../../../store/slices/dogs.slice";
 import {
   Card,
   CardActions,
   CardContent,
   CardMedia,
+  Chip,
   Grid,
+  Stack,
   Typography,
 } from "@mui/material";
 
@@ -31,24 +33,23 @@ export const DogsList = (props: any) => {
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia sx={{ height: 250, overflow: "hidden" }}>
                   <Link from="/" to={"/dogs/$dogId"} params={{ dogId: id }}>
-                    <img src={imgSrc(id)} width={"100%"} />
+                    <img alt={id} src={imgSrc(id)} width={"100%"} />
                   </Link>
                 </CardMedia>
                 <CardContent>
                   <Typography gutterBottom variant="h5">
                     {title}
                   </Typography>
-                  {/* <Stack direction="column" spacing={1}>
-                    {statistics &&
-                      Object.keys(statistics).map((key) => (
+                  <Stack direction="column" spacing={1}>
+                    {/* {statistics &&
+                      Object.keys(statistics as IStatistics).map((name: string, i:number) => (
                         <Chip
-                          key={key}
+                          key={i}
                           color="info"
-                          icon={<FaceIcon />}
-                          label={(statistics as any)[key] || ''}
+                          label={name+" "+statistics[name as keyof IStatistics].min+" "+statistics[name as keyof IStatistics].max }
                         />
-                      ))}
-                  </Stack> */}
+                      ))} */}
+                  </Stack>
                 </CardContent>
                 <CardActions>
                   <Link from="/" to={"/dogs/$dogId"} params={{ dogId: id }}>

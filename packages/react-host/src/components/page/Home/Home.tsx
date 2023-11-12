@@ -22,6 +22,7 @@ export const Home = () => {
           <Card>
             <CardMedia sx={{ height: 170 }}>
               <img
+                alt="Hase Susskartoffel"
                 src={hase}
                 width={150}
                 style={{ margin: "30px auto", display: "block" }}
