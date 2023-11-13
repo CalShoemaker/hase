@@ -81,9 +81,9 @@ export const Dashboard = (props: any) => {
               Hase
             </Link>
           </Typography>
-          <IconButton onClick={toggleDrawer}>
+          {/* <IconButton onClick={toggleDrawer}>
             <ChevronLeftIcon />
-          </IconButton>
+          </IconButton> */}
         </Toolbar>
         <Divider />
         {props.sidebar}
@@ -91,10 +91,7 @@ export const Dashboard = (props: any) => {
       <Box
         component="main"
         sx={{
-          backgroundColor: (theme) =>
-            theme.palette.mode === "light"
-              ? theme.palette.grey[100]
-              : theme.palette.grey[900],
+          backgroundColor: (theme) => theme.palette.grey[100],
           flexGrow: 1,
           overflow: "auto",
           height: "100vh",

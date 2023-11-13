@@ -11,6 +11,8 @@ import DogsList from "../DogsList";
 import Sidebar from "../../feature/Sidebar";
 import { useDispatch } from "react-redux";
 
+
+
 // TODO: Use this approach for Store -> API 
 // https://redux.js.org/tutorials/essentials/part-8-rtk-query-advanced
 export function Dogs() {
@@ -23,7 +25,7 @@ export function Dogs() {
   // TODO: Cache results, debounce, throttle.
   useEffect(() => {
     dispatch<any>(fetchDogs(filters.filters));
-  }, [dispatch]);
+  }, [dispatch, filters]);
 
   return (
     <Suspense fallback={<h2>🌀 Loading...</h2>}>
