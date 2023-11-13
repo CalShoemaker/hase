@@ -15,10 +15,10 @@ interface IFilters {
 
 const initialState: IFilters = {
   filters: {
-    life: [2, 18],
-    height: [6, 20],
-    weight: [10, 25],
-    breed: "Mixed",
+    life: [2, 20],
+    height: [4, 14],
+    weight: [5, 60],
+    breed: "Pure",
   },
 };
 

@@ -22,7 +22,7 @@ export const Sidebar = (props: any) => {
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
-        <Link to="/dogs">
+        <Link to="/dogs" style={{textDecoration:'none'}}>
           <ListItemText primary="Dashboard" />
         </Link>
       </ListItemButton>
