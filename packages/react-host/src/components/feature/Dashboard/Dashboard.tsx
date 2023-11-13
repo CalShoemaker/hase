@@ -15,9 +15,6 @@ import { Link } from "@tanstack/react-router";
 
 // TODO: Refactor any type
 export const Dashboard = (props: any) => {
-  // const { dogId } = useParams({ from:'/Dashboard' });
-
-  // TODO: Use Router path
   const [open, setOpen] = useState(true);
 
   const toggleDrawer = () => {
@@ -26,8 +23,8 @@ export const Dashboard = (props: any) => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar position="absolute" open={open}>
-        <Toolbar sx={{ pr: "24px" }}>
+      <AppBar position="absolute" open={open} elevation={0} color="transparent" sx={{backdropFilter:"blur(20px)"}}>
+        <Toolbar sx={{ pr: "20px" }}>
           <IconButton
             edge="start"
             color="inherit"
@@ -47,7 +44,7 @@ export const Dashboard = (props: any) => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            <Link style={{ textDecoration: "none", color: "#fff" }} to="/dogs">
+            <Link style={{ textDecoration: "none", color: "#282828" }} to="/dogs">
               Dogs
             </Link>
           </Typography>
@@ -62,10 +59,12 @@ export const Dashboard = (props: any) => {
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <Toolbar
+          color="transparent"
           sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end",
+            backdropFilter:"blur(20px)",
             px: [1],
           }}
         >
@@ -77,7 +76,7 @@ export const Dashboard = (props: any) => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            <Link style={{ textDecoration: "none", color: "#000" }} to="/">
+            <Link style={{ textDecoration: "none", color: "#282828" }} to="/">
               Hase
             </Link>
           </Typography>
@@ -91,19 +90,16 @@ export const Dashboard = (props: any) => {
       <Box
         component="main"
         sx={{
-          backgroundColor: (theme) =>
-            theme.palette.mode === "light"
-              ? theme.palette.grey[100]
-              : theme.palette.grey[900],
+          backgroundColor: (theme) => theme.palette.grey[100],
           flexGrow: 1,
           overflow: "auto",
           height: "100vh",
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Box  sx={{ m:1, maxWidth:'100%' }}>
           {props.main}
-        </Container>
+        </Box>
       </Box>
     </Box>
   );

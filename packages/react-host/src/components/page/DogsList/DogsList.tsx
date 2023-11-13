@@ -4,14 +4,12 @@ import React, { Suspense } from "react";
 import { IDog, IStatistics } from "../../../store/slices/dogs.slice";
 import {
   Card,
-  CardActions,
   CardContent,
   CardMedia,
-  Chip,
-  Grid,
-  Stack,
   Typography,
 } from "@mui/material";
+
+import Masonry from '@mui/lab/Masonry';
 
 const imgSrc = (id: string) => {
   try {
@@ -26,40 +24,31 @@ const imgSrc = (id: string) => {
 export const DogsList = (props: any) => {
   return (
     <Suspense fallback={<h2>🌀 Loading...</h2>}>
-      <Grid container spacing={3}>
+      <Masonry spacing={1} columns={3}>
         {props.dogs &&
-          (props.dogs as IDog[]).map(({ title, facts, id, statistics }) => (
-            <Grid item xs={12} key={title} md={4} lg={4}>
-              <Card sx={{ maxWidth: 345 }}>
-                <CardMedia sx={{ height: 250, overflow: "hidden" }}>
-                  <Link from="/" to={"/dogs/$dogId"} params={{ dogId: id }}>
-                    <img alt={id} src={imgSrc(id)} width={"100%"} />
-                  </Link>
-                </CardMedia>
-                <CardContent>
-                  <Typography gutterBottom variant="h5">
-                    {title}
-                  </Typography>
-                  <Stack direction="column" spacing={1}>
-                    {/* {statistics &&
-                      Object.keys(statistics as IStatistics).map((name: string, i:number) => (
-                        <Chip
-                          key={i}
-                          color="info"
-                          label={name+" "+statistics[name as keyof IStatistics].min+" "+statistics[name as keyof IStatistics].max }
-                        />
-                      ))} */}
-                  </Stack>
-                </CardContent>
-                <CardActions>
-                  <Link from="/" to={"/dogs/$dogId"} params={{ dogId: id }}>
-                    Learn More
-                  </Link>
-                </CardActions>
-              </Card>
-            </Grid>
+          (props.dogs as IDog[]).map(({ title, id, statistics }) => (
+            <Card sx={{ position:'relative'  }} elevation={0} key={title}>
+              <CardContent color="transparent" sx={{ 
+                backdropFilter:"blur(20px)", 
+                position:'absolute', 
+                bottom:0, 
+                width:'100%', 
+                p:1, 
+                fontWeight:'bolder', 
+                background:'rgba(250,250,250,0.5)' 
+              }}>
+                <Typography gutterBottom variant="h5" color="transparent" sx={{ color:'#111'}} mx={2}>
+                  {title}
+                </Typography>
+              </CardContent>
+              <CardMedia sx={{ overflow: "hidden" }}>
+                <Link from="/" to={"/dogs/$dogId"} params={{ dogId: id }}>
+                  <img alt={id} src={imgSrc(id)} width={"100%"} />
+                </Link>
+              </CardMedia>
+            </Card>
           ))}
-      </Grid>
+      </Masonry>
     </Suspense>
   );
 };
