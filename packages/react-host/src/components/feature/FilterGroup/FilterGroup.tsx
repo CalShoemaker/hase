@@ -120,7 +120,6 @@ const Filters = (filters:any, handler:any) => {
 
 export function FilterGroup(props: any) {
   const dispatch = useDispatch();
-  const { breed } = props.filters;
 
   // Currywurst die beste
   const handleChange =
