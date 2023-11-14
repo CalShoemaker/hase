@@ -11,6 +11,28 @@ function valuetext(value: number) {
   return `${value}`;
 }
 
+function FilterToggle(props: any) {
+  const { data, handler, options, icon } = props.config;
+  console.log(props.config)
+  return (
+    <ListItem>
+        <ListItemIcon>
+          { icon }
+        </ListItemIcon>
+        <ListItemText>
+        <ToggleButtonGroup
+          color="primary"
+          value={data}
+          exclusive
+          onChange={handler}
+        >
+          { options.map((name:string) => (<ToggleButton value={name}>{name}</ToggleButton>))}
+        </ToggleButtonGroup>
+      </ListItemText>
+    </ListItem>
+  )
+}
+
 function FilterItem(props: any) {
   const { data, handler, label,  min, max, step, icon } = props.config;
   return (      
@@ -56,10 +78,49 @@ function update(filter: string, payload: string | number |  number[], filters: a
   return { height, weight, life, breed }
 }
 
+const Filters = (filters:any, handler:any) => {
+  const { height, weight, life, breed } = filters;
+
+  return [{
+    type:'toggle',
+    data: breed,
+    handler: handler("breed"),
+    label: "Breed",
+    options: ["Pure", "Hybrid", "Mixed"],
+    icon: <AssessmentIcon titleAccess="Breed"/>
+  },{
+    type:'range',
+    data: life,
+    handler: handler("life"),
+    label: "Age Range",
+    min: 0,
+    max: 20,
+    step: 1,
+    icon: <AvTimerIcon titleAccess="Age in Years" />
+  },{
+    type:'range',
+    data: height,
+    handler: handler("height"),
+    label: "Height Range",
+    min: 0,
+    max: 40,
+    step: 1,
+    icon: <HeightIcon titleAccess="Height in Inches" />
+  },{
+    type:'range',
+    data: weight,
+    handler: handler("weight"),
+    label: "Weight Range",
+    min: 0,
+    max: 170,
+    step: 5,
+    icon: <ScaleIcon titleAccess="Weight in Pounds" />
+  }]
+}
+
 export function FilterGroup(props: any) {
   const dispatch = useDispatch();
-  const { height, weight, life, breed } = props.filters;
-  const suppress = window.location.pathname !== '/dogs';
+  const { breed } = props.filters;
 
   // Currywurst die beste
   const handleChange =
@@ -68,60 +129,16 @@ export function FilterGroup(props: any) {
       event: React.MouseEvent<HTMLElement> | Event,
       newValue: string | number | number[],
     ) => {
-      return !suppress && dispatch<any>(setFilters(update(filter, newValue, props.filters )));
+      return dispatch<any>(setFilters(update(filter, newValue, props.filters )));
     };
 
-  const filters = [{
-    data: life,
-    handler: handleChange("life"),
-    label: "Age Range",
-    min: 0,
-    max: 20,
-    step: 1,
-    icon: <AvTimerIcon titleAccess="Age in Years" />
-  },{
-    data: height,
-    handler: handleChange("height"),
-    label: "Height Range",
-    min: 0,
-    max: 40,
-    step: 1,
-    icon: <HeightIcon titleAccess="Height in Inches" />
-  },{
-    data: weight,
-    handler: handleChange("weight"),
-    label: "Weight Range",
-    min: 0,
-    max: 170,
-    step: 5,
-    icon: <ScaleIcon titleAccess="Weight in Pounds" />
-  }]
+  const filters = Filters(props.filters, handleChange)
     
   return (
     <Box sx={{ backgroundColor: "#f5f5f5" }}>
-      <ListItem>
-        <ListItemIcon>
-          <AssessmentIcon titleAccess="Breed"/>
-        </ListItemIcon>
-        <ListItemText>
-        <ToggleButtonGroup
-          color="primary"
-          value={breed}
-          exclusive
-          onChange={handleChange("breed")}
-          defaultValue={"Mixed"}
-          aria-label="Breed"
-        >
-          <ToggleButton value="Pure">Pure</ToggleButton>
-          <ToggleButton value="Hybrid">Hybrid</ToggleButton>
-          <ToggleButton value="Mixed">Mixed</ToggleButton>
-        </ToggleButtonGroup>
-        </ListItemText>
-      </ListItem>
-
       { 
         // NOTE: Data driven for scale
-        filters.map((item, i) => (<FilterItem key={i} config={ item } />)) 
+        filters.map((item, i) => item.type==="range" ? (<FilterItem key={i} config={ item } />) : item.type==="toggle" ? (<FilterToggle key={i} config={ item}/>):'') 
       }
     </Box>
   );

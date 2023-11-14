@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "@tanstack/react-router";
 import {
   List,
   Divider,
@@ -11,11 +12,9 @@ import LayersIcon from "@mui/icons-material/Layers";
 import { FilterGroup } from "../FilterGroup";
 import { Link } from "@tanstack/react-router";
 
-// TODO: Use Router
-const context = window.location.pathname === "/dogs";
-
 // TODO: Refactor any type
 export const Sidebar = (props: any) => {
+  const { dogId } = useParams({ from: "/Dogs/Dog" });
   return (
     <List component="nav">
       <ListItemButton>
@@ -26,7 +25,7 @@ export const Sidebar = (props: any) => {
           <ListItemText primary="Dashboard" />
         </Link>
       </ListItemButton>
-      {context ? (
+      {!dogId ? (
         <FilterGroup
           filters={props.filters.filters}
           setFilters={props.setFilters}
