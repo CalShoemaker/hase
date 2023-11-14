@@ -120,24 +120,20 @@ const Filters = (filters:any, handler:any) => {
 
 export function FilterGroup(props: any) {
   const dispatch = useDispatch();
-
-  // Currywurst die beste
-  const handleChange =
-    (filter: string) =>
-    (
-      event: React.MouseEvent<HTMLElement> | Event,
-      newValue: string | number | number[],
-    ) => {
-      return dispatch<any>(setFilters(update(filter, newValue, props.filters )));
-    };
-
-  const filters = Filters(props.filters, handleChange)
+  const filters = Filters(props.filters, (filter: string) =>
+  (
+    event: React.MouseEvent<HTMLElement> | Event,
+    newValue: string | number | number[],
+  ) => {
+    return dispatch<any>(setFilters(update(filter, newValue, props.filters )));
+  })
     
   return (
     <Box sx={{ backgroundColor: "#f5f5f5" }}>
       { 
-        // NOTE: Data driven for scale
-        filters.map((item, i) => item.type==="range" ? (<FilterItem key={i} config={ item } />) : item.type==="toggle" ? (<FilterToggle key={i} config={ item}/>):'') 
+        filters.map((item, i) => item.type==="range" ? 
+          (<FilterItem key={i} config={ item } />) : item.type==="toggle" ? 
+          (<FilterToggle key={i} config={ item}/>):'') 
       }
     </Box>
   );
