@@ -22,7 +22,7 @@ export const Sidebar = (props: any) => {
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
-        <Link to="/dogs" style={{textDecoration:'none'}}>
+        <Link to="/dogs" style={{ textDecoration:'none' }}>
           <ListItemText primary="Dashboard" />
         </Link>
       </ListItemButton>
@@ -42,4 +42,5 @@ export const Sidebar = (props: any) => {
     </List>
   );
 };
+
 export default Sidebar;

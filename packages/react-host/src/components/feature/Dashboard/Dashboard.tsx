@@ -4,7 +4,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Container from "@mui/material/Container";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import PetsIcon from "@mui/icons-material/Pets";
@@ -20,10 +19,10 @@ export const Dashboard = (props: any) => {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
+  
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar position="absolute" open={open} elevation={0} color="transparent" sx={{backdropFilter:"blur(20px)"}}>
+      <AppBar position="absolute" open={open} elevation={0} color="transparent" sx={{ backdropFilter: "blur(20px)" }}>
         <Toolbar sx={{ pr: "20px" }}>
           <IconButton
             edge="start"
@@ -45,16 +44,9 @@ export const Dashboard = (props: any) => {
             sx={{ flexGrow: 1 }}
           >
             <Link style={{ textDecoration: "none", color: "#282828" }} to="/dogs">
-              Dogs
+              Dogs { props.title ? ' | ' + props.title : '' }
             </Link>
           </Typography>
-          {/* 
-            TODO: UserRole badges
-            <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton> */}
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -64,7 +56,7 @@ export const Dashboard = (props: any) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end",
-            backdropFilter:"blur(20px)",
+            backdropFilter: "blur(20px)",
             px: [1],
           }}
         >
@@ -85,21 +77,20 @@ export const Dashboard = (props: any) => {
           </IconButton>
         </Toolbar>
         <Divider />
-        {props.sidebar}
+        { props.sidebar }
       </Drawer>
       <Box
         component="main"
         sx={{
           backgroundColor: (theme) => theme.palette.grey[100],
           flexGrow: 1,
+          padding: 1,
           overflow: "auto",
           height: "100vh",
         }}
       >
         <Toolbar />
-        <Box  sx={{ m:1, maxWidth:'100%' }}>
-          {props.main}
-        </Box>
+        { props.main }
       </Box>
     </Box>
   );

@@ -2,11 +2,12 @@ import { Outlet, useParams } from "@tanstack/react-router";
 import React, { Suspense, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Dashboard from "../../feature/Dashboard";
-import DogsList from "../DogsList";
+import DogsList from "../../ui/DogsList";
 import Sidebar from "../../feature/Sidebar";
 import {
   selectDogs,
-  fetchDogs
+  fetchDogs,
+  selectDogById
 } from "../../../store/slices/dogs.slice";
 import { 
   selectFilters, 
@@ -18,7 +19,8 @@ export function Dogs() {
   const data = useSelector(selectDogs);
   const filters = useSelector(selectFilters);
   const dispatch = useDispatch();
-
+  const { title } = useSelector(selectDogById(dogId)) || { title: null };
+  
   useEffect(() => {
     dispatch<any>(fetchDogs(filters.filters));
   }, [dispatch, filters]);
@@ -26,6 +28,7 @@ export function Dogs() {
   return (
     <Suspense fallback={<h2>🌀 Loading...</h2>}>
       <Dashboard
+        title={ title ? title : null }
         main={dogId ? <Outlet /> : <DogsList dogs={data.dogs} />}
         sidebar={<Sidebar setFilters={setFilters} filters={filters} />}
       />

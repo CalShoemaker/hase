@@ -29,7 +29,7 @@ interface IAccordion {
 
 interface ISpecialCards {
   rating?: Array<IRating>;
-  accordion?: Array<IAccordion>;
+  accordions?: Array<IAccordion>;
 }
 
 interface ISpecial {
