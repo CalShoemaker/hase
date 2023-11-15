@@ -82,11 +82,12 @@ const Filters = (filters:any, handler:any) => {
   const { height, weight, life, breed } = filters;
 
   return [{
-    type:'toggle',
+    type: 'toggle',
     data: breed,
     handler: handler("breed"),
     label: "Breed",
     options: ["Pure", "Hybrid", "Mixed"],
+    variant: FilterToggle,
     icon: <AssessmentIcon titleAccess="Breed"/>
   },{
     type:'range',
@@ -96,6 +97,7 @@ const Filters = (filters:any, handler:any) => {
     min: 0,
     max: 20,
     step: 1,
+    variant: FilterItem,
     icon: <AvTimerIcon titleAccess="Age in Years" />
   },{
     type:'range',
@@ -105,6 +107,7 @@ const Filters = (filters:any, handler:any) => {
     min: 0,
     max: 40,
     step: 1,
+    variant: FilterItem,
     icon: <HeightIcon titleAccess="Height in Inches" />
   },{
     type:'range',
@@ -114,6 +117,7 @@ const Filters = (filters:any, handler:any) => {
     min: 0,
     max: 170,
     step: 5,
+    variant: FilterItem,
     icon: <ScaleIcon titleAccess="Weight in Pounds" />
   }]
 }
@@ -127,13 +131,14 @@ export function FilterGroup(props: any) {
   ) => {
     return dispatch<any>(setFilters(update(filter, newValue, props.filters )));
   })
-    
+  
   return (
     <Box sx={{ backgroundColor: "#f5f5f5" }}>
       { 
-        filters.map((item, i) => item.type==="range" ? 
-          (<FilterItem key={i} config={ item } />) : item.type==="toggle" ? 
-          (<FilterToggle key={i} config={ item}/>):'') 
+        filters.map((item, i) => {
+          const Component = item.variant;
+          return (<Component key={i} config={ item } />)
+        })
       }
     </Box>
   );

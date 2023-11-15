@@ -1,6 +1,5 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -10,6 +9,7 @@ import PetsIcon from "@mui/icons-material/Pets";
 import { useState } from "react";
 import { Drawer } from "../../ui/Drawer";
 import { AppBar } from "../../ui/AppBar";
+import Toolbar from "../../ui/Toolbar";
 import { Link } from "@tanstack/react-router";
 
 // TODO: Refactor any type
@@ -22,7 +22,7 @@ export const Dashboard = (props: any) => {
   
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar position="absolute" open={open} elevation={0} color="transparent" sx={{ backdropFilter: "blur(20px)" }}>
+      <AppBar position="absolute" open={open} elevation={0} color="transparent">
         <Toolbar sx={{ pr: "20px" }}>
           <IconButton
             edge="start"
@@ -50,16 +50,7 @@ export const Dashboard = (props: any) => {
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
-        <Toolbar
-          color="transparent"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            backdropFilter: "blur(20px)",
-            px: [1],
-          }}
-        >
+        <Toolbar color="transparent" >
           <PetsIcon sx={{ margin: 1 }} />
           <Typography
             component="h2"
