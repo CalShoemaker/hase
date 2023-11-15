@@ -1,5 +1,5 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../index";
+// import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+// import { RootState } from "../index";
 
 const dogs: Array<IDog> = [];
 
@@ -80,53 +80,53 @@ const initialState: IHase = {
   isLoading: false
 };
 
-export const fetchDogs = createAsyncThunk("fetchDogs", async (filters:IFilters) => {
-  const { life, height, weight, breed } = filters;
-  const [ minLife, maxLife] = life || [0, 18];
-  const [ minHeight, maxHeight ] =  height || [0, 18];
-  const [ minWeight, maxWeight ] = weight || [0, 18];
-  const s = 'statistics.';
+// export const fetchDogs = createAsyncThunk("fetchDogs", async (filters:IFilters) => {
+//   const { life, height, weight, breed } = filters;
+//   const [ minLife, maxLife] = life || [0, 18];
+//   const [ minHeight, maxHeight ] =  height || [0, 18];
+//   const [ minWeight, maxWeight ] = weight || [0, 18];
+//   const s = 'statistics.';
 
-  const filter = '?' + s + 'Breed=' + breed + 
-        '&' + s + 'Life.min_gte=' + minLife + '&' + s + 'Life.max_lte=' + maxLife +
-        '&' + s + 'Height.min_gte=' + minHeight + '&' + s + 'Height.max_lte=' + maxHeight +
-        '&' + s + 'Weight.min_gte=' + minWeight + '&' + s + 'Weight.max_lte=' + maxWeight;
+//   const filter = '?' + s + 'Breed=' + breed + 
+//         '&' + s + 'Life.min_gte=' + minLife + '&' + s + 'Life.max_lte=' + maxLife +
+//         '&' + s + 'Height.min_gte=' + minHeight + '&' + s + 'Height.max_lte=' + maxHeight +
+//         '&' + s + 'Weight.min_gte=' + minWeight + '&' + s + 'Weight.max_lte=' + maxWeight;
 
-  // TODO: Use Nest instead of JSON-Server, add auth.
-  const res = await fetch(`http://localhost:3000/dogs${filter}`);
-  return res?.json();
-});
+//   // TODO: Use Nest instead of JSON-Server, add auth.
+//   const res = await fetch(`http://localhost:3000/dogs${filter}`);
+//   return res?.json();
+// });
 
-export const dogsSlice = createSlice({
-  name: "dogs",
-  initialState,
-  reducers: {
-    reset: () => ({ ...initialState }),
-    setDogs:(state:IHase, action:PayloadAction<Array<IDog>>) => ({
-      ...state,
-      dogs: action.payload
-    })
-  },
-  extraReducers: (builder) => {
-   builder.addCase(fetchDogs.pending, (state, action) => {
-    state.isLoading = true;
-   })
-   builder.addCase(fetchDogs.fulfilled, (state, action) => {
-    state.isLoading = false;
-    state.dogs = action.payload;
-   })
-   builder.addCase(fetchDogs.rejected, (state, action) => {
-    state.isError = true;
-   })
-  }
-});
+// export const dogsSlice = createSlice({
+//   name: "dogs",
+//   initialState,
+//   reducers: {
+//     reset: () => ({ ...initialState }),
+//     setDogs:(state:IHase, action:PayloadAction<Array<IDog>>) => ({
+//       ...state,
+//       dogs: action.payload
+//     })
+//   },
+//   extraReducers: (builder) => {
+//    builder.addCase(fetchDogs.pending, (state, action) => {
+//     state.isLoading = true;
+//    })
+//    builder.addCase(fetchDogs.fulfilled, (state, action) => {
+//     state.isLoading = false;
+//     state.dogs = action.payload;
+//    })
+//    builder.addCase(fetchDogs.rejected, (state, action) => {
+//     state.isError = true;
+//    })
+//   }
+// });
 
-export const selectDogs = (state: RootState): IDogs => state.dogs;
-export const selectFilteredDogs = (state: RootState): IDogs => state.dogs;
-export const selectDogById =
-  (ID: string) =>
-  (state: RootState): IDog =>
-    state.dogs.dogs.filter(({ id }) => id === ID)[0];
+// export const selectDogs = (state: RootState): IDogs => state.dogs;
+// export const selectFilteredDogs = (state: RootState): IDogs => state.dogs;
+// export const selectDogById =
+//   (ID: string) =>
+//   (state: RootState): IDog =>
+//     state.dogs.dogs.filter(({ id }) => id === ID)[0];
 
-export const { setDogs } = dogsSlice.actions;
-export default dogsSlice.reducer;
+// export const { setDogs } = dogsSlice.actions;
+// export default dogsSlice.reducer;

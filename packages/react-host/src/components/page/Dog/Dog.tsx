@@ -1,7 +1,5 @@
 import { useParams } from "@tanstack/react-router";
-import React, { Suspense, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectDogById } from "../../../store/slices/dogs.slice";
+import React, { useState } from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -17,6 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useGetDogByIdQuery } from "../../../store/slices/api.slice";
 
 const imgSrc = (uri: string) => {
   try {
@@ -87,15 +86,15 @@ const heroStack = (id: string, facts: any) => {
 
 const pStack = (p:Array<any>) => {
   return (
-    <Typography>
+    <>
       {p.map(
         (content: any, p: number) => (
-          <p key={p}>
+          <Typography key={p}>
             { content }
-          </p>
-        ),
+          </Typography>
+        )
       )}
-    </Typography>
+    </>
   )
 }
 
@@ -152,13 +151,36 @@ const imageStack = (imgs:Array<any>) => {
 
 export function Dog() {
   const { dogId } = useParams({ from: "/Dogs/Dog" });
-  const { title, statistics, facts, id, tags, special } = useSelector(
-    selectDogById(dogId!),
-  );
-  const [imgs] = useState(useDynamicDogs(id));
+  const [imgs] = useState(useDynamicDogs(dogId));
+  const { 
+    data:dog, 
+    error, 
+    isLoading 
+  } = useGetDogByIdQuery(dogId);
 
-  return (
-    <Suspense fallback={<h2>🌀 Loading...</h2>}>
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (error) {
+    if ('status' in error) {
+      const errMsg = 'error' in error ? error.error : JSON.stringify(error.data)
+
+      return (
+        <div>
+          <div>An error has occurred:</div>
+          <div>{errMsg}</div>
+        </div>
+      )
+    } else {
+      // you can access all properties of `SerializedError` here
+      return <div>{error.message}</div>
+    }
+  }
+
+  if (dog) {
+    const { title, statistics, facts, id, tags, special } = dog[0];
+    return (
       <Paper sx={{ padding:5 }}>
         <Stack direction="column" spacing={2}>
           <Typography variant="h2">{title}</Typography>
@@ -175,8 +197,10 @@ export function Dog() {
         <Divider variant="middle" sx={{ my:5 }} />
         { imgs ? imageStack(imgs) : '' }
       </Paper>
-    </Suspense>
-  );
+    );
+  }
+
+  return null
 }
 
 export default Dog;

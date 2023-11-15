@@ -1,35 +1,33 @@
 import { Outlet, useParams } from "@tanstack/react-router";
-import React, { Suspense, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { Suspense } from "react";
+import { useSelector } from "react-redux";
 import Dashboard from "../../feature/Dashboard";
 import DogsList from "../../ui/DogsList";
 import Sidebar from "../../feature/Sidebar";
-import {
-  selectDogs,
-  fetchDogs,
-  selectDogById
-} from "../../../store/slices/dogs.slice";
+
 import { 
   selectFilters, 
+  selectFormattedFilters, 
   setFilters 
 } from "../../../store/slices/filters.slice";
 
+import { useGetFilteredDogsQuery } from "../../../store/slices/api.slice";
+
+// const DList = (formatted: string) => {
+//   const { data: dogs } = useGetFilteredDogsQuery(formatted);
+//   return(<DogsList dogs={ dogs } />)
+// }
+
 export function Dogs() {
   const { dogId } = useParams({ from: "/Dogs/Dog" });
-  const data = useSelector(selectDogs);
   const filters = useSelector(selectFilters);
-  const dispatch = useDispatch();
-  const { title } = useSelector(selectDogById(dogId)) || { title: null };
-  
-  useEffect(() => {
-    dispatch<any>(fetchDogs(filters.filters));
-  }, [dispatch, filters]);
+  const formatted = useSelector(selectFormattedFilters);
+  const { data: dogs } = useGetFilteredDogsQuery(formatted);
 
   return (
     <Suspense fallback={<h2>🌀 Loading...</h2>}>
       <Dashboard
-        title={ title ? title : null }
-        main={dogId ? <Outlet /> : <DogsList dogs={data.dogs} />}
+        main={dogId ? <Outlet /> : <DogsList dogs={ dogs } /> }
         sidebar={<Sidebar setFilters={setFilters} filters={filters} />}
       />
     </Suspense>

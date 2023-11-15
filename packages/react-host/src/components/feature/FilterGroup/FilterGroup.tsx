@@ -6,14 +6,18 @@ import AvTimerIcon from '@mui/icons-material/AvTimer';
 import HeightIcon from '@mui/icons-material/Height';
 import ScaleIcon from '@mui/icons-material/Scale';
 import { Box, Slider, ToggleButtonGroup, ToggleButton, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-
+import Diversity1Icon from '@mui/icons-material/Diversity1';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import InsightsIcon from '@mui/icons-material/Insights';
+import SoapIcon from '@mui/icons-material/Soap';
+import HearingIcon from '@mui/icons-material/Hearing';
+;
 function valuetext(value: number) {
   return `${value}`;
 }
 
 function FilterToggle(props: any) {
   const { data, handler, options, icon } = props.config;
-  console.log(props.config)
   return (
     <ListItem>
         <ListItemIcon>
@@ -26,7 +30,7 @@ function FilterToggle(props: any) {
           exclusive
           onChange={handler}
         >
-          { options.map((name:string) => (<ToggleButton value={name}>{name}</ToggleButton>))}
+          { options.map((name:string) => (<ToggleButton key={name} value={name}>{name}</ToggleButton>))}
         </ToggleButtonGroup>
       </ListItemText>
     </ListItem>
